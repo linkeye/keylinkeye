@@ -5,8 +5,6 @@ Keylinkeye is a JavaScript tool to generate, import and export linkeye keys.  Th
 
 Keylinkeye uses the same key derivation functions (PBKDF2-SHA256 or scrypt), symmetric ciphers (AES-128-CTR or AES-128-CBC), and message authentication codes as [linkeye](https://github.com/linkeye/linkeye).  You can export your generated key to file, copy it to your data directory's keystore, and immediately start using it in your local Ethereum client.
 
-*Note: starting in version 0.5.0, keylinkeye's `encrypt` and `decrypt` functions both return Buffers instead of strings.  This is a breaking change for anyone using these functions directly!*
-
 ## Installation
 
 ```
