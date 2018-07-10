@@ -33,11 +33,11 @@ Generate a new random private key (256 bit), as well as the salt (256 bit) used 
 
 ```javascript
 // optional private key and initialization vector sizes in bytes
-// (if params is not passed to create, keythereum.constants is used by default)
+// (if params is not passed to create, keylinkeye.constants is used by default)
 var params = { keyBytes: 32, ivBytes: 16 };
 
 // synchronous
-var dk = keythereum.create(params);
+var dk = keylinkeye.create(params);
 // dk:
 {
     privateKey: <Buffer ...>,
@@ -46,7 +46,7 @@ var dk = keythereum.create(params);
 }
 
 // asynchronous
-keythereum.create(params, function (dk) {
+keylinkeye.create(params, function (dk) {
     // do stuff!
 });
 ```
@@ -56,14 +56,14 @@ keythereum.create(params, function (dk) {
 You will need to specify a password and (optionally) a key derivation function.  If unspecified, PBKDF2-SHA256 will be used to derive the AES secret key.
 
 ```javascript
-var password = "wheethereum";
+var password = "linkeye";
 var kdf = "pbkdf2"; // or "scrypt" to use the scrypt kdf
 ```
 
-The `dump` function is used to export key info to keystore ["secret-storage" format](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition).  If a callback function is supplied as the sixth parameter to `dump`, it will run asynchronously:
+The `dump` function is used to export key info to keystore, If a callback function is supplied as the sixth parameter to `dump`, it will run asynchronously:
 
 ```javascript
-// Note: if options is unspecified, the values in keythereum.constants are used.
+// Note: if options is unspecified, the values in keylinkeye.constants are used.
 var options = {
   kdf: "pbkdf2",
   cipher: "aes-128-ctr",
@@ -75,7 +75,7 @@ var options = {
 };
 
 // synchronous
-var keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options);
+var keyObject = keylinkeye.dump(password, dk.privateKey, dk.salt, dk.iv, options);
 // keyObject:
 {
   address: "008aeeda4d805471df9b2a5b0f38a0c3bcba786b",
@@ -99,55 +99,55 @@ var keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options
 }
 
 // asynchronous
-keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options, function (keyObject) {
+keylinkeye.dump(password, dk.privateKey, dk.salt, dk.iv, options, function (keyObject) {
   // do stuff!
 });
 ```
 
-`dump` creates an object and not a JSON string.  In Node, the `exportToFile` method provides an easy way to export this formatted key object to file.  It creates a JSON file in the `keystore` sub-directory, and uses geth's current file-naming convention (ISO timestamp concatenated with the key's derived Ethereum address).
+`dump` creates an object and not a JSON string.  In Node, the `exportToFile` method provides an easy way to export this formatted key object to file.  It creates a JSON file in the `keystore` sub-directory, and uses linkeye's current file-naming convention (ISO timestamp concatenated with the key's derived Linkeye address).
 
 ```javascript
-keythereum.exportToFile(keyObject);
+keylinkeye.exportToFile(keyObject);
 ```
 
 After successful key export, you will see a message like:
 
 ```
 Saved to file:
-keystore/UTC--2015-08-11T06:13:53.359Z--008aeeda4d805471df9b2a5b0f38a0c3bcba786b
+keystore/UTC--2015-08-11T06:13:53.359Z--LET008aeeda4d805471df9b2a5b0f38a0c3bcba786b
 
-To use with geth, copy this file to your Ethereum keystore folder
-(usually ~/.ethereum/keystore).
+To use with linkeye, copy this file to your Linkeye keystore folder
+(usually ~/.linkeye/keystore).
 ```
 
 ### Key import
 
-Importing a key from geth's keystore can only be done on Node.  The JSON file is parsed into an object with the same structure as `keyObject` above.
+Importing a key from linkeye's keystore can only be done on Node.  The JSON file is parsed into an object with the same structure as `keyObject` above.
 
 ```javascript
 // Specify a data directory (optional; defaults to ~/.ethereum)
-var datadir = "/home/jack/.ethereum-test";
+var datadir = "/home/jack/.linkeye-test";
 
 // Synchronous
-var keyObject = keythereum.importFromFile(address, datadir);
+var keyObject = keylinkeye.importFromFile(address, datadir);
 
 // Asynchronous
-keythereum.importFromFile(address, datadir, function (keyObject) {
+keylinkeye.importFromFile(address, datadir, function (keyObject) {
   // do stuff
 });
 ```
 This has been tested with version 3 and version 1, but not version 2, keys.  (Please send me a version 2 keystore file if you have one, so I can test it!)
 
-To recover the plaintext private key from the key object, use `keythereum.recover`.  The private key is returned as a Buffer.
+To recover the plaintext private key from the key object, use `keylinkeye.recover`.  The private key is returned as a Buffer.
 
 ```javascript
 // synchronous
-var privateKey = keythereum.recover(password, keyObject);
+var privateKey = keylinkeye.recover(password, keyObject);
 // privateKey:
 <Buffer ...>
 
 // Asynchronous
-keythereum.recover(password, keyObject, function (privateKey) {
+keylinkeye.recover(password, keyObject, function (privateKey) {
   // do stuff
 });
 ```
